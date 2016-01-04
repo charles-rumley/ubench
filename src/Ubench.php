@@ -40,7 +40,7 @@ class Ubench
     public function start()
     {
         $this->start_time = microtime(true);
-        $this->start_memory = memory_get_usage(true);
+        $this->start_memory = memory_get_usage();
     }
 
     /**
@@ -51,7 +51,7 @@ class Ubench
     public function end()
     {
         $this->end_time = microtime(true);
-        $this->end_memory = memory_get_usage(true);
+        $this->end_memory = memory_get_usage();
     }
 
     /**
