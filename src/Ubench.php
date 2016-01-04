@@ -28,7 +28,9 @@ class Ubench
 
     protected $end_time;
 
-    protected $memory_usage;
+    protected $start_memory;
+
+    protected $end_memory;
 
     /**
      * Sets start microtime
@@ -38,6 +40,7 @@ class Ubench
     public function start()
     {
         $this->start_time = microtime(true);
+        $this->start_memory = memory_get_usage(true);
     }
 
     /**
@@ -48,7 +51,7 @@ class Ubench
     public function end()
     {
         $this->end_time = microtime(true);
-        $this->memory_usage = memory_get_usage(true);
+        $this->end_memory = memory_get_usage(true);
     }
 
     /**
@@ -74,7 +77,8 @@ class Ubench
      */
     public function getMemoryUsage($raw = false, $format = null)
     {
-        return $raw ? $this->memory_usage : self::readableSize($this->memory_usage, $format);
+        $memory_usage_delta = $this->end_memory - $this->start_memory;
+        return $raw ? $memory_usage_delta : self::readableSize($memory_usage_delta, $format);
     }
 
     /**
